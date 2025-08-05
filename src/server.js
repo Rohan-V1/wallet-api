@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { initDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import transactionRoute from "./routes/transactionsRoute.js";
+import job from "./config/cron.js"
 dotenv.config();
 
 const app=express()
@@ -17,8 +18,11 @@ const PORT=process.env.PORT|| 5001;
 app.get("/health",(req,res)=>{
     res.send("It's working!");
 })
+app.get("/api/health",(req,res)=>{
+    res.status(200).json({status: "ok"})
+})
 
-
+if(process.env.NODE_ENV==="production")job.start();
 
 
 initDB().then(()=>{

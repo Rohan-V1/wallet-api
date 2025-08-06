@@ -44,7 +44,7 @@ export async function deleteTransactions(req,res) {
         try {
             const {Id}=req.params;
             if(isNaN(parseInt(Id))){
-                return res.status(400).json({message:"This fucking ID is not a number"})
+                return res.status(400).json({message:"Given ID is not a number"})
             }
             const transaction = await sql`DELETE  FROM transactions WHERE id=${Id} RETURNING *`
             if(transaction.length===0){

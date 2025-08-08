@@ -15,14 +15,12 @@ app.use("/api/transactions",transactionRoute)
 
 const PORT=process.env.PORT|| 5001;
 
-app.get("/health",(req,res)=>{
-    res.send("It's working!");
-})
+
 app.get("/api/health",(req,res)=>{
     res.status(200).json({status: "ok"})
 })
 
-if(process.env.NODE_ENV==="production")job.start();
+if(process.env.NODE_ENV==="production") job.start();
 
 
 initDB().then(()=>{
